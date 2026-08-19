@@ -5,6 +5,10 @@ import { loadManifest } from '@utils/content'
 import { useEffect, useState } from 'react'
 import type { SubjectManifest, TopicManifest } from '@types-def/content'
 
+function getLabel(title: string | undefined, fallback: string): string {
+  return title !== undefined ? title : fallback
+}
+
 export function Breadcrumbs() {
   const location = useLocation()
   const [subjects, setSubjects] = useState<SubjectManifest[]>([])
@@ -32,15 +36,11 @@ export function Breadcrumbs() {
     }
     if (index === 1 && segments[0] === 'subject') {
       const subject = getSubject(segment)
-      const title = subject?.title
-      const label: string = title !== undefined ? title : segment
-      return { label, path, isLast }
+      return { label: getLabel(subject?.title, segment), path, isLast }
     }
     if (index === 2 && segments[0] === 'topic') {
       const topic = getTopic(segments[1], segment)
-      const title = topic?.title
-      const label: string = title !== undefined ? title : segment
-      return { label, path, isLast }
+      return { label: getLabel(topic?.title, segment), path, isLast }
     }
     if (index === 1 && segments[0] === 'search') {
       return { label: 'Search', path: '/search', isLast: true }
