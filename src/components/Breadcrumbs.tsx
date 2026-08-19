@@ -32,12 +32,12 @@ export function Breadcrumbs() {
     }
     if (index === 1 && segments[0] === 'subject') {
       const subject = getSubject(segment)
-      const label: string = subject?.title ?? segment
+      const label = (subject?.title ?? segment) as string
       return { label, path, isLast }
     }
     if (index === 2 && segments[0] === 'topic') {
       const topic = getTopic(segments[1], segment)
-      const label: string = topic?.title ?? segment
+      const label = (topic?.title ?? segment) as string
       return { label, path, isLast }
     }
     if (index === 1 && segments[0] === 'search') {
